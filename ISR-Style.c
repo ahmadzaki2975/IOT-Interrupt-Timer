@@ -10,7 +10,7 @@ uint64_t timer_start_time;
 uint64_t timer_end_time;
 
 // Fungsi yang akan dipanggil ketika timer interrupt terjadi
-void IRAM_ATTR timer_callback(void *arg)
+void IRAM_ATTR timer_interrupt(void *arg)
 {
   static bool ON;
   ON = !ON;
@@ -42,7 +42,7 @@ void app_main(void)
 
   // Konfigurasi timer
   esp_timer_create_args_t timer_config = {
-      .callback = &timer_callback,
+      .callback = &timer_interrupt,
       .name = "my_timer"};
 
   // Membuat timer
